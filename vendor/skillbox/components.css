@@ -1,0 +1,979 @@
+/* Компоненты дизайн-системы Skillbox.
+   Переиспользуемый слой: подключается в сгенерированных проектах.
+   Токены подтягиваются автоматически, отдельно tokens.css подключать не нужно. */
+@import url("./tokens.css");
+
+:root {
+  --chart-bar-height: 24px;
+  --list-arrow-filter: none;
+  color-scheme: light;
+}
+
+/* Тема принадлежит библиотеке, поэтому работает и без шаблона проекта. */
+.theme-dark {
+  --bg: var(--bg-dark);
+  --surface: var(--surface-dark);
+  --surface-alt: var(--surface-dark);
+  --text: var(--text-on-dark);
+  --muted-text: var(--text-on-dark);
+  --list-arrow-filter: invert(1);
+  color-scheme: dark;
+  color: var(--text);
+  background: var(--bg);
+}
+
+[hidden] {
+  display: none !important;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: var(--font-family);
+  font-synthesis: none;
+  color: var(--text);
+  background: var(--bg);
+  line-height: 1.5;
+}
+
+.container {
+  width: min(var(--container), calc(100% - 32px));
+  margin-inline: auto;
+}
+
+/* Браузерные monospace-стили не должны подменять фирменный шрифт. */
+code, pre, kbd, samp {
+  font-family: var(--font-family);
+}
+
+.card {
+  background: var(--surface);
+  border-radius: var(--radius-md);
+}
+
+.hero {
+  display: grid;
+  grid-template-columns: 1.1fr 0.9fr;
+  gap: var(--space-xl);
+  align-items: center;
+}
+
+.eyebrow {
+  display: inline-flex;
+  padding: 6px 12px;
+  border-radius: var(--radius-pill);
+  background: var(--surface);
+  color: var(--text);
+  font-size: var(--small-size);
+  font-weight: 600;
+}
+
+h1, h2, h3 {
+  margin: 0;
+  letter-spacing: -0.03em;
+}
+
+h1 {
+  margin-top: var(--space-md);
+  font-size: var(--h1-size);
+  line-height: 1.05;
+  font-weight: var(--h1-weight);
+}
+
+h2 {
+  font-size: var(--h2-size);
+  line-height: 1.1;
+  font-weight: var(--h2-weight);
+}
+
+h3 {
+  font-size: var(--h3-size);
+  line-height: 1.2;
+  font-weight: var(--h3-weight);
+}
+
+p {
+  margin: 0;
+  font-size: var(--body-size);
+  font-weight: var(--body-weight);
+  color: var(--text);
+}
+
+.list-large-bullets {
+  margin: var(--space-md) 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.list-large-bullets li {
+  position: relative;
+  margin: 0 0 var(--space-sm);
+  padding-left: 24px;
+  color: var(--text);
+  font-size: var(--body-size);
+  font-weight: var(--body-weight);
+  line-height: 1.45;
+}
+
+.list-large-bullets li::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: calc((1em * 1.45 - 15px) / 2);
+  width: 15px;
+  height: 15px;
+  border-radius: 50%;
+  background: var(--text);
+}
+
+.list-level-2 {
+  margin: var(--space-sm) 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.list-level-2 li {
+  position: relative;
+  margin: 0 0 10px;
+  padding-left: 22px;
+  color: var(--text);
+  font-size: calc(var(--body-size) - 1px);
+  font-weight: var(--body-weight);
+  line-height: 1.4;
+}
+
+.list-level-2 li::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: calc((1em * 1.4 - 14px) / 2);
+  width: 14px;
+  height: 14px;
+  /* SVG-фон работает и при file://, где внешние CSS-маски блокируются. */
+  background: url("./arrow.svg") no-repeat center / contain;
+  filter: var(--list-arrow-filter);
+}
+
+.control-group {
+  margin-top: var(--space-lg);
+  display: grid;
+  gap: var(--space-md);
+}
+
+.control-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  color: var(--text);
+  font-size: var(--body-size);
+  font-weight: var(--body-weight);
+}
+
+.control-row input {
+  appearance: none;
+  -webkit-appearance: none;
+  margin: 0;
+  width: 22px;
+  height: 22px;
+  background: var(--surface);
+  display: inline-grid;
+  place-content: center;
+  cursor: pointer;
+}
+
+.control-row input[type="checkbox"] {
+  border-radius: 8px;
+}
+
+.control-row input[type="radio"] {
+  border-radius: 50%;
+}
+
+.control-row input::before {
+  content: "";
+  transform: scale(0);
+  transition: transform var(--motion-fast) var(--motion-easing);
+}
+
+.control-row input[type="checkbox"]::before {
+  width: 6px;
+  height: 10px;
+  border-right: 3px solid var(--primary);
+  border-bottom: 3px solid var(--primary);
+  border-radius: 1px;
+  transform: rotate(45deg) scale(0);
+  transform-origin: center;
+}
+
+.control-row input[type="radio"]::before {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: var(--primary);
+}
+
+.control-row input:checked::before {
+  transform: scale(1);
+}
+
+.control-row input[type="checkbox"]:checked::before {
+  transform: rotate(45deg) scale(1);
+}
+
+.form-block {
+  display: grid;
+  gap: var(--space-sm);
+  align-content: start;
+}
+
+.form-label {
+  color: var(--text);
+  font-size: var(--small-size);
+  font-weight: 600;
+}
+
+.field,
+.select-field,
+.textarea-field {
+  width: 100%;
+  border: 2px solid var(--field-border);
+  border-radius: var(--radius-md);
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font-family);
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 1.35;
+  padding: 16px 18px;
+  outline: none;
+  transition: border-color var(--motion-fast) var(--motion-easing);
+}
+
+.field::placeholder,
+.textarea-field::placeholder {
+  color: var(--placeholder);
+  opacity: 1;
+}
+
+.field:focus,
+.select-field:focus,
+.textarea-field:focus {
+  border-color: var(--text);
+  outline: 1px solid var(--text);
+  outline-offset: -3px;
+}
+
+.textarea-wrap {
+  position: relative;
+  display: block;
+}
+
+.textarea-field {
+  min-height: 128px;
+  padding-right: 32px;
+  padding-bottom: 32px;
+  resize: vertical;
+}
+
+.textarea-resize-handle {
+  position: absolute;
+  right: 9px;
+  bottom: 14px;
+  width: 14px;
+  height: 14px;
+  border: 0;
+  background:
+    linear-gradient(135deg, transparent 0 48%, var(--placeholder) 48% 58%, transparent 58% 100%),
+    linear-gradient(135deg, transparent 0 66%, var(--placeholder) 66% 76%, transparent 76% 100%);
+  cursor: nwse-resize;
+  padding: 0;
+}
+
+.select-wrap {
+  position: relative;
+}
+
+.select-field {
+  appearance: none;
+  -webkit-appearance: none;
+  padding-right: 48px;
+}
+
+.select-wrap::after {
+  content: "";
+  position: absolute;
+  right: 18px;
+  top: 50%;
+  width: 9px;
+  height: 9px;
+  border-right: 2px solid var(--placeholder);
+  border-bottom: 2px solid var(--placeholder);
+  transform: translateY(-70%) rotate(45deg);
+  pointer-events: none;
+}
+
+.select-display {
+  width: 100%;
+  margin: 0;
+  border: 2px solid var(--field-border);
+  border-radius: var(--radius-md);
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font-family);
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 1.35;
+  padding: 16px 52px 16px 18px;
+  text-align: left;
+  position: relative;
+  cursor: pointer;
+}
+
+.select-display::after {
+  content: "";
+  position: absolute;
+  right: 20px;
+  top: 50%;
+  width: 10px;
+  height: 10px;
+  border-right: 2px solid var(--placeholder);
+  border-bottom: 2px solid var(--placeholder);
+  transform: translateY(-62%) rotate(45deg);
+  pointer-events: none;
+}
+
+[data-select] {
+  position: relative;
+}
+
+[data-select].is-open .select-display {
+  border-color: var(--text);
+}
+
+[data-select].is-open .select-display::after {
+  transform: translateY(-38%) rotate(225deg);
+}
+
+[data-select].is-open .select-menu:not([hidden]) {
+  display: grid;
+}
+
+.select-menu {
+  position: fixed;
+  border: 2px solid var(--field-border);
+  border-radius: var(--radius-md);
+  background: var(--bg);
+  padding: 8px;
+  display: none;
+  gap: 4px;
+  z-index: 20;
+  overflow-y: auto;
+}
+
+.select-option {
+  width: 100%;
+  border: 0;
+  border-radius: 12px;
+  background: transparent;
+  color: var(--text);
+  font-family: var(--font-family);
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 1.35;
+  padding: 12px 14px;
+  text-align: left;
+  position: relative;
+  cursor: pointer;
+}
+
+.select-option.is-selected {
+  padding-left: 36px;
+}
+
+.select-option.is-selected::before {
+  content: "";
+  position: absolute;
+  left: 14px;
+  top: calc(50% - 6px);
+  width: 7px;
+  height: 12px;
+  border-right: 3px solid currentColor;
+  border-bottom: 3px solid currentColor;
+  transform: rotate(45deg);
+}
+
+.select-option:hover,
+.select-option:focus-visible {
+  background: var(--primary);
+  color: #FFFFFF;
+}
+
+.tabs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-lg);
+  align-items: flex-start;
+  align-content: flex-start;
+  justify-content: flex-start;
+  height: auto;
+  min-height: 0;
+}
+
+.tab {
+  display: inline-flex;
+  align-items: flex-start;
+  align-self: flex-start;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+  color: var(--text);
+  font-family: var(--font-family);
+  font-size: 15px;
+  font-weight: 600;
+  line-height: 1.35;
+  padding: 0 0 14px;
+  position: relative;
+  text-align: left;
+  white-space: nowrap;
+  cursor: pointer;
+  flex: 0 0 auto;
+}
+
+.tab::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 0;
+  height: 3px;
+  border-radius: var(--radius-pill);
+  background: var(--text);
+}
+
+.tab.is-active {
+  color: var(--text);
+}
+
+.tab.is-active::after {
+  width: 100%;
+}
+
+.tag-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-xs);
+  align-items: flex-start;
+}
+
+.tag {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex: 0 0 auto;
+  min-height: 40px;
+  border-radius: var(--radius-pill);
+  background: var(--surface);
+  color: var(--text);
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 1;
+  white-space: nowrap;
+  padding: 0 16px;
+}
+
+.tag.is-active {
+  background: var(--text);
+  color: var(--bg);
+}
+
+.toggle-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  color: var(--text);
+  font-size: var(--body-size);
+  font-weight: 400;
+  align-self: start;
+}
+
+.toggle-row input {
+  appearance: none;
+  -webkit-appearance: none;
+  width: 46px;
+  height: 28px;
+  border: 0;
+  border-radius: var(--radius-pill);
+  background: var(--surface);
+  margin: 0;
+  padding: 3px;
+  cursor: pointer;
+}
+
+.toggle-row input::before {
+  content: "";
+  display: block;
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background: var(--text);
+  transition: transform var(--motion-fast) var(--motion-easing),
+    background var(--motion-fast) var(--motion-easing);
+}
+
+.toggle-row input:checked {
+  background: var(--primary);
+}
+
+.toggle-row input:checked::before {
+  background: #FFFFFF;
+  transform: translateX(18px);
+}
+
+.selector-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-sm);
+}
+
+.selector-card {
+  display: grid;
+  grid-template-columns: 22px 1fr auto;
+  align-items: center;
+  gap: 14px;
+  border: 2px solid var(--field-border);
+  border-radius: var(--radius-md);
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font-family);
+  padding: 18px 20px;
+  text-align: left;
+  cursor: pointer;
+  transition: border-color var(--motion-fast) var(--motion-easing);
+}
+
+.selector-copy {
+  display: grid;
+  gap: 6px;
+}
+
+.selector-card strong {
+  display: block;
+  font-size: 16px;
+  font-weight: 600;
+}
+
+.selector-copy span {
+  display: block;
+  color: var(--text);
+  font-size: 14px;
+  font-weight: 400;
+}
+
+.selector-card.is-active {
+  border-color: var(--text);
+  outline: 1px solid var(--text);
+  outline-offset: -3px;
+}
+
+.selector-radio {
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  display: inline-grid;
+  place-content: center;
+  position: relative;
+  background: var(--surface);
+}
+
+.selector-card.is-active .selector-radio {
+  background: var(--surface);
+}
+
+.selector-radio::after {
+  content: "";
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: var(--primary);
+  transform: scale(0);
+  transition: transform var(--motion-fast) var(--motion-easing);
+}
+
+.selector-card.is-active .selector-radio::after {
+  transform: scale(1);
+}
+
+.selector-meta {
+  color: var(--text);
+  font-size: 14px;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.chart-grid {
+  margin-top: var(--space-lg);
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--space-lg);
+}
+
+.chart-card {
+  padding: var(--space-lg);
+}
+
+.chart-title {
+  color: var(--text);
+  font-size: 18px;
+  font-weight: 600;
+}
+
+.chart-canvas {
+  margin-top: var(--space-md);
+  min-height: 180px;
+}
+
+.chart-with-axis {
+  display: grid;
+  grid-template-columns: 42px 1fr;
+  gap: var(--space-sm);
+}
+
+.axis-y {
+  height: 220px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  color: var(--text);
+  font-size: 13px;
+  font-weight: 400;
+}
+
+.chart-svg {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+.bar-chart {
+  height: 220px;
+  display: flex;
+  align-items: end;
+  gap: 12px;
+}
+
+.bar-item {
+  flex: 1;
+  height: 100%;
+  display: grid;
+  grid-template-rows: 22px 1fr 22px;
+  align-items: end;
+  gap: 6px;
+}
+
+.bar {
+  width: 100%;
+  border-radius: var(--radius-sm);
+  background: var(--text);
+}
+
+.bar.is-primary {
+  background: var(--primary);
+}
+
+.bar-value,
+.bar-label {
+  color: var(--text);
+  font-size: 13px;
+  font-weight: 400;
+  text-align: center;
+}
+
+.bar-value {
+  font-weight: 600;
+}
+
+.pie-info {
+  display: grid;
+  grid-template-columns: 220px 1fr;
+  align-items: center;
+  gap: var(--space-md);
+}
+
+.pie-svg {
+  max-width: 220px;
+}
+
+.chart-legend {
+  display: grid;
+  gap: 10px;
+}
+
+.chart-legend span {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: var(--text);
+  font-size: 15px;
+  font-weight: 400;
+}
+
+.chart-legend i {
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  flex: 0 0 auto;
+}
+
+.gantt-chart {
+  display: grid;
+  gap: 14px;
+}
+
+.gantt-scale {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  padding-left: 102px;
+  color: var(--text);
+  font-size: 13px;
+  font-weight: 400;
+}
+
+.gantt-row {
+  display: grid;
+  grid-template-columns: 90px 1fr;
+  align-items: center;
+  gap: var(--space-sm);
+}
+
+.gantt-label {
+  color: var(--text);
+  font-size: 14px;
+  font-weight: 400;
+}
+
+.gantt-track {
+  height: var(--chart-bar-height);
+  border-radius: var(--radius-pill);
+  background: var(--surface);
+  overflow: hidden;
+}
+
+.gantt-bar {
+  display: block;
+  height: 100%;
+  border-radius: var(--radius-pill);
+  background: var(--text);
+  color: var(--bg);
+  font-size: 12px;
+  font-weight: 600;
+  line-height: var(--chart-bar-height);
+  text-align: center;
+  overflow: hidden;
+}
+
+.gantt-bar.is-primary {
+  background: var(--primary);
+  color: #FFFFFF;
+}
+
+.metric-bars {
+  display: grid;
+  gap: 14px;
+}
+
+.metric-row {
+  display: grid;
+  gap: 8px;
+}
+
+.metric-label {
+  display: flex;
+  justify-content: space-between;
+  color: var(--text);
+  font-size: 14px;
+  font-weight: 400;
+}
+
+.metric-label b {
+  font-weight: 600;
+}
+
+.metric-track {
+  height: var(--chart-bar-height);
+  border-radius: var(--radius-pill);
+  background: var(--surface);
+  overflow: hidden;
+}
+
+.metric-fill {
+  display: block;
+  height: 100%;
+  border-radius: var(--radius-pill);
+  background: var(--primary);
+  color: #FFFFFF;
+  font-size: 12px;
+  font-weight: 600;
+  line-height: var(--chart-bar-height);
+  text-align: center;
+  overflow: hidden;
+}
+
+.hero-copy {
+  margin-top: var(--space-md);
+  max-width: 58ch;
+}
+
+.actions {
+  margin-top: var(--space-lg);
+  display: flex;
+  gap: var(--space-sm);
+  flex-wrap: wrap;
+}
+
+.btn {
+  border: 0;
+  border-radius: var(--radius-pill);
+  padding: 12px 26px;
+  /* Кнопки не наследуют шрифт от body — объявляем явно, иначе браузер
+     подставит системный и Graphik потеряется. */
+  font-family: var(--font-family);
+  /* .btn вешают и на <a>: без этого у ссылки-кнопки остаётся подчёркивание. */
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 15px;
+  font-weight: var(--weight-semibold);
+  cursor: pointer;
+  transition: transform var(--motion-fast) var(--motion-easing),
+    background var(--motion-normal) var(--motion-easing);
+}
+
+.btn:hover {
+  transform: translateY(-1px);
+}
+
+.btn-primary {
+  background: var(--primary);
+  color: #FFFFFF;
+}
+
+.btn-primary:hover {
+  background: var(--primary-hover);
+}
+
+.btn-secondary {
+  background: var(--surface);
+  color: var(--text);
+  border: 0;
+}
+
+.feature-card {
+  padding: var(--space-lg);
+}
+
+.feature-icon {
+  width: 38px;
+  height: 38px;
+  border-radius: var(--radius-sm);
+  background: color-mix(in srgb, var(--primary) 12%, var(--surface));
+  display: inline-grid;
+  place-items: center;
+  font-weight: 700;
+  color: var(--text);
+}
+
+.feature-card h3 {
+  margin-top: var(--space-md);
+  font-size: 22px;
+}
+
+.feature-card p {
+  margin-top: var(--space-sm);
+  font-size: 16px;
+}
+
+@media (max-width: 980px) {
+h1 {
+    font-size: 44px;
+  }
+
+h2 {
+    font-size: 34px;
+  }
+
+.hero {
+    grid-template-columns: 1fr;
+  }
+
+.chart-grid {
+    grid-template-columns: 1fr;
+  }
+
+.pie-info {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 640px) {
+.container {
+    width: calc(100% - 24px);
+  }
+
+h1 {
+    font-size: 34px;
+  }
+
+h2 {
+    font-size: 28px;
+  }
+
+.selector-grid {
+    grid-template-columns: 1fr;
+  }
+
+.gantt-scale {
+    padding-left: 0;
+  }
+
+.gantt-row {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* --- Иконки набора --------------------------------------------------------
+   Заливка внутри SVG зашита чёрным (currentColor набор не поддерживает),
+   поэтому цвет меняется только инверсией. Для чистого #000000 invert(1)
+   даёт ровно #FFFFFF, форма и пропорции не затрагиваются.
+   Пять иконок не квадратные (003, 007, 014, 016, 018) — размер задаётся
+   боксом, а вписывание через object-fit, чтобы не было растяжения. */
+.icon {
+  width: 48px;
+  height: 48px;
+  object-fit: contain;
+  display: block;
+}
+
+.icon-lg {
+  width: 72px;
+  height: 72px;
+}
+
+.icon-on-dark {
+  filter: invert(1);
+}
+
+/* Доступный фокус без теней: контрастная сплошная линия. */
+.btn:focus-visible,
+.tab:focus-visible,
+.selector-card:focus-visible,
+.select-display:focus-visible,
+.select-option:focus-visible,
+.control-row input:focus-visible,
+.toggle-row input:focus-visible {
+  outline: 2px solid var(--text);
+  outline-offset: 3px;
+}

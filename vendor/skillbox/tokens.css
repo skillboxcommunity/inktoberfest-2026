@@ -1,0 +1,118 @@
+/* ВНИМАНИЕ: файл сгенерирован из assets/tokens.json.
+   Не редактировать вручную — правки затрутся.
+   Меняйте tokens.json и запускайте: python scripts/build.py */
+/* Skillbox Style Pack · v2.0.0 */
+
+/* Regular */
+@font-face {
+  font-family: "Graphik";
+  src:
+    url("./fonts/Graphik-Regular-Web.woff2") format("woff2"),
+    url("./fonts/Graphik-Regular-Web.woff") format("woff");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* Medium */
+@font-face {
+  font-family: "Graphik";
+  src:
+    url("./fonts/Graphik-Medium-Web.woff2") format("woff2"),
+    url("./fonts/Graphik-Medium-Web.woff") format("woff");
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* Semibold */
+@font-face {
+  font-family: "Graphik";
+  src:
+    url("./fonts/Graphik-Semibold-Web.woff2") format("woff2"),
+    url("./fonts/Graphik-Semibold-Web.woff") format("woff");
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* Bold */
+@font-face {
+  font-family: "Graphik";
+  src:
+    url("./fonts/Graphik-Bold-Web.woff2") format("woff2"),
+    url("./fonts/Graphik-Bold-Web.woff") format("woff");
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+:root {
+  /* Color */
+  --bg: #FFFFFF;
+  --bg-dark: #000000;
+  --surface: #F5F5F5;
+  --surface-alt: #F5F5F5;
+  --surface-dark: #202020;
+  --text: #000000;
+  --text-on-dark: #FFFFFF;
+  --primary: #3D3BFF;
+  --primary-hover: #302ee6;
+  --accent-plum: #939266;
+  --accent-mint: #B8E8B6;
+  --accent-peach: #FFC38E;
+  --accent-lavender: #968BAB;
+  --accent-lime: #D8FF28;
+  --accent-gray: #C4C4C4;
+  --accent-pink: #F7C8FF;
+  --border: transparent;
+  --field-border: #D9D9D9;
+  --placeholder: #8D8D8D;
+  --muted-text: #000000;
+  --accent: var(--accent-plum);
+
+  /* Typography */
+  --font-family: "Graphik";
+  --weight-regular: 400;
+  --weight-medium: 500;
+  --weight-semibold: 600;
+  --weight-bold: 700;
+  --h1-size: 56px;
+  --h1-weight: 700;
+  --h2-size: 40px;
+  --h2-weight: 600;
+  --h3-size: 28px;
+  --h3-weight: 600;
+  --body-size: 18px;
+  --body-weight: 400;
+  --small-size: 14px;
+  --small-weight: 400;
+  --heading-letter-spacing: -0.03em;
+
+  /* Spacing */
+  --space-xs: 8px;
+  --space-sm: 12px;
+  --space-md: 16px;
+  --space-lg: 24px;
+  --space-xl: 32px;
+  --space-2xl: 48px;
+  --space-3xl: 72px;
+
+  /* Radius */
+  --radius-sm: 12px;
+  --radius-md: 18px;
+  --radius-lg: 26px;
+  --radius-pill: 999px;
+
+  /* Shadow */
+  --shadow-soft: none;
+  --shadow-lifted: none;
+
+  /* Motion */
+  --motion-fast: 160ms;
+  --motion-normal: 220ms;
+  --motion-easing: cubic-bezier(0.22, 1, 0.36, 1);
+
+  /* Layout */
+  --container: 1160px;
+}
